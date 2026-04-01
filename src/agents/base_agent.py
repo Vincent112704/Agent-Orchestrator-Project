@@ -8,6 +8,9 @@ from openai import OpenAI
 from langsmith.wrappers import wrap_openai
 from dotenv import load_dotenv
 from pathlib import Path
+from src.utils.path import get_project_root
+
+
 logging.basicConfig(level=logging.INFO)
 # Load environment variables
 load_dotenv()
@@ -167,6 +170,7 @@ class BaseAgent:
         print(f"[{agent_name}] ✓ Completed in {latency_ms}ms")
 
     def get_prompt_from_file(self, filename: str) -> str:
+
         """Utility to load prompt templates from files"""
         file_path = self.prompts_dir / filename
         try:
@@ -175,3 +179,5 @@ class BaseAgent:
         except Exception as e:
             logging.error(f"❌ Error loading prompt from {filename}: {e}")
             return ""
+
+

@@ -1,10 +1,16 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 import os
+from src.utils.path import get_project_root
+from dotenv import load_dotenv
+import logging
+from src.models import Base
 
+
+logging.basicConfig(level=logging.INFO)
+load_dotenv()
 # Database URL
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./data/orchestrator.db")
-
+DATABASE_URL = os.getenv("DATABASE_URL")
 # Create engine
 engine = create_engine(
     DATABASE_URL,
@@ -24,5 +30,4 @@ def get_db():
 
 def create_tables():
     """Create all tables"""
-    from src.models import Base
     Base.metadata.create_all(bind=engine)
