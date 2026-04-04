@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 import os
-from src.utils.path import get_project_root
 from dotenv import load_dotenv
 import logging
 from src.models import Base
+
 
 
 logging.basicConfig(level=logging.INFO)
@@ -23,11 +23,18 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 def get_db():
     """Get database session for FastAPI dependency injection"""
     db = SessionLocal()
+    
     try:
         yield db
     finally:
+        logging.info("Closing database session")
         db.close()
 
 def create_tables():
     """Create all tables"""
-    Base.metadata.create_all(bind=engine)
+    logging.info("Creating database tables...")
+    try:
+        Base.metadata.create_all(bind=engine)
+        logging.info("Database tables created successfully.")
+    except Exception as e:
+        logging.error(f"Error creating database tables: {e}")

@@ -2,6 +2,7 @@ from src.agents.base_agent import BaseAgent
 from typing import Dict, List
 import time
 import logging
+from src.utils.path import get_project_root
 
 logging.basicConfig(level=logging.INFO)
 

@@ -1,6 +1,5 @@
 # SQLAlchemy ORM Models
 ## src/models/__init__.py
-
 from sqlalchemy import Column, String, Integer, Float, Boolean, DateTime, Text, ForeignKey, CheckConstraint, UniqueConstraint, Index
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
